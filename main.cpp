@@ -1,6 +1,18 @@
-#include "Queue.h"
+#include "Huffman.h"
 #include <conio.h>
 
+int main()
+{
+	const char* Source = "https://www.small-pond.tistory.com";
+	
+	Huffman MyCompression;
+	MyCompression.Encode(Source);
+	printf("%s\n", MyCompression.GetBitString());
+
+	return 0;
+}
+
+/*
 int main()
 {
 	Queue PQ;
@@ -38,3 +50,4 @@ int main()
 	printf("\n==========작업 완료==========");
 	return 0;
 }
+*/
