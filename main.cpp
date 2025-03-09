@@ -1,83 +1,40 @@
 #include "Queue.h"
-
-/*
-void PrintNode(Node* Node){
-	printf("작업명: %s (우선순위: %d)\n", Node->Data, Node->Priority);
-}
+#include <conio.h>
 
 int main()
 {
 	Queue PQ;
-	Node Popped;
 
-	Node Nodes[7]={
-		{(void*)"코딩", 34},
-		{(void*)"고객미팅", 12},
-		{(void*)"커피타기", 87},
-		{(void*)"문서작성", 45},
-		{(void*)"디버깅", 35},
-		{(void*)"이닦기", 66},
-		{(void*)"밥먹기", 22}
+	QNode NewNode[] = {
+		{(void*)"밥먹기", 1},
+		{(void*)"코딩", 22},
+		{(void*)"샤워", 17},
+		{(void*)"게임", 99},
+		{(void*)"잠자기", 2},
+		{(void*)"커피", 10},
+		{(void*)"미팅", 4},
 	};
 
-	PQ.Enqueue(Nodes[0]);
-	PQ.Enqueue(Nodes[1]);
-	PQ.Enqueue(Nodes[2]);
-	PQ.Enqueue(Nodes[3]);
-	PQ.Enqueue(Nodes[4]);
-	PQ.Enqueue(Nodes[5]);
-	PQ.Enqueue(Nodes[6]);
 
-	printf("큐에 남아있는 작업의 수: %d\n", PQ.GetUsedSize());
-	printf("작업 시작\n");
-
-	while(!(PQ.IsEmpty())){
-		PQ.Dequeue(&Popped);
-		PrintNode(&Popped);
+	printf("작업을 큐에 등록합니다.\n");
+	for(int i=0; i<7; i++){
+		printf("작업명: %s(%d)\n", (char*)NewNode[i].Data, NewNode[i].Priority);
+		PQ.Enqueue(NewNode[i]);
 	}
+	printf("등록을 완료하였습니다.\n");
 
-	printf("작업 후 큐에 남아있는 작업의 수: %d\n", PQ.GetUsedSize());
+	printf("작업을 시작하려면 아무 키나 누르세요.\n");
+	_getch();
 
-	return 0;
-}
-*/
+	printf("등록된 작업을 수행합니다.\n");
+	printf("==========작업 시작==========\n\n");
 
-void PrintNode(QNode* Node){
-	printf("작업명: %s (우선순위: %d)\n", Node->Data, Node->Priority);
-}
-
-int main()
-{
-	Queue PQ;
 	QNode Popped;
-
-	QNode Nodes[7]={
-		{(void*)"코딩", 34},
-		{(void*)"고객미팅", 12},
-		{(void*)"커피타기", 87},
-		{(void*)"문서작성", 45},
-		{(void*)"디버깅", 35},
-		{(void*)"이닦기", 66},
-		{(void*)"밥먹기", 22}
-	};
-
-	PQ.Enqueue(Nodes[0]);
-	PQ.Enqueue(Nodes[1]);
-	PQ.Enqueue(Nodes[2]);
-	PQ.Enqueue(Nodes[3]);
-	PQ.Enqueue(Nodes[4]);
-	PQ.Enqueue(Nodes[5]);
-	PQ.Enqueue(Nodes[6]);
-
-	printf("큐에 남아있는 작업의 수: %d\n", PQ.GetUsedSize());
-	printf("작업 시작\n");
-
 	while(!(PQ.IsEmpty())){
 		PQ.Dequeue(&Popped);
-		PrintNode(&Popped);
+		printf("작업명: %s(%d)\n", (char*)Popped.Data, Popped.Priority);
 	}
 
-	printf("작업 후 큐에 남아있는 작업의 수: %d\n", PQ.GetUsedSize());
-
+	printf("\n==========작업 완료==========");
 	return 0;
 }

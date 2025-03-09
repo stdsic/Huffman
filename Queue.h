@@ -1,28 +1,31 @@
 #ifndef __QUEUE_H_
 #define __QUEUE_H_
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <memory.h>
 
 struct QNode{
-	void *Data;
+	void* Data;
 	size_t Priority;
 
 	QNode(void* _Data = 0, size_t _Priority = 0) : Data(_Data), Priority(_Priority){ ; }
+
+	const bool operator <(const QNode &Other) const {
+		return Priority < Other.Priority;
+	}
 };
 
 class Queue{
 private:
-	QNode	*Nodes;
-	size_t	Capacity,
-			UsedSize;
+	QNode*	Nodes;
+	size_t	UsedSize,
+			Capacity;
 
 private:
-	void SwapNodes(size_t Index1, size_t Index2);
 	void EnsureCapacity();
 	void ReduceCapacity();
+	void SwapNodes(size_t Index1, size_t Index2);
 
 private:
 	const size_t GetParent(size_t Index) const { return Index - 1 >> 1; }
@@ -37,11 +40,10 @@ public:
 	const size_t GetUsedSize() const { return UsedSize; }
 
 public:
-	Queue(size_t _Capacity = 0) : Capacity(_Capacity), UsedSize(0), Nodes(NULL){
-		if(Capacity < 0){ Capacity = 0; };
+	Queue(size_t _Capacity = 0) : Capacity(_Capacity), UsedSize(0), Nodes(NULL){ 
+		if(Capacity < 0){ Capacity = 0; }
 		if(Capacity > 0){ Nodes = (QNode*)malloc(sizeof(QNode) * Capacity); }
 	}
-
 	~Queue(){ if(Nodes){ free(Nodes); } }
 };
 

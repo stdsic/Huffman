@@ -18,25 +18,26 @@ void Queue::EnsureCapacity(){
 	}
 }
 
-void Queue::ReduceCapacity(){
-	if(UsedSize <= (Capacity / 2)){
-		Capacity /= 2;
-		Nodes = (QNode*)realloc(Nodes, sizeof(QNode) * Capacity);
-	}
-}
-
 void Queue::Enqueue(QNode NewNode){
 	EnsureCapacity();
 	Nodes[UsedSize] = NewNode;
 
+	// 부모와 우선순위를 비교해서 위치설정
 	size_t C = UsedSize++;
-	// 부모 노드만 비교
-	while(C > 1){
+	while(C > 0){
 		size_t P = GetParent(C);
-		if(Nodes[C].Priority >= Nodes[P].Priority){break;}
+		if(Nodes[C].Priority >= Nodes[P].Priority){ break; }
 
-		SwapNodes(P, C);
+		SwapNodes(C, P);
 		C = P;
+	}
+}
+
+
+void Queue::ReduceCapacity(){
+	if(UsedSize < (Capacity / 2)){
+		Capacity /= 2;
+		Nodes = (QNode*)realloc(Nodes, sizeof(QNode) * Capacity);
 	}
 }
 
@@ -46,18 +47,18 @@ void Queue::Dequeue(QNode *ret){
 
 	SwapNodes(0, --UsedSize);
 
-	// 형제 노드를 포함
+	// 형제를 포함한 비교가 수행되어야 함
 	size_t P = 0;
 	while(1){
 		size_t	L = GetLeftChild(P),
 				R = L + 1;
 
-		if(L >= UsedSize){break;}
-		size_t S = ((((R) >= (UsedSize)) || ((Nodes[L].Priority) < (Nodes[R].Priority))) ? (L) : (R));
+		if(L >= UsedSize){ break; }
+		size_t S = (((R) >= (UsedSize)) || ((Nodes[L].Priority) < (Nodes[R].Priority)) ? (L) : (R)) ;
 
 		if(Nodes[P].Priority <= Nodes[S].Priority){ break; }
 		SwapNodes(P, S);
-		P = S;
+		P = GetParent(S);
 	}
 
 	ReduceCapacity();
