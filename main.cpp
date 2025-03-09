@@ -7,10 +7,13 @@ int main()
 	
 	Huffman MyCompression;
 	MyCompression.Encode(Source);
-	printf("BitString = %s\n", MyCompression.GetBitString());
 
+	printf("Origin Source = %s\n", Source);
+	printf("Convert BitString = %s\n", MyCompression.GetBitString());
+
+	printf("========== Docoding ==========\n");
 	MyCompression.Decode(MyCompression.GetBitString());
-	printf("Decoded = %s\n", MyCompression.GetDecodeString());
+	printf("DecodeString = %s\n", MyCompression.GetDecodeString());
 
 	return 0;
 }
