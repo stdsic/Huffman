@@ -138,7 +138,7 @@ void Huffman::Decode(const char* BitString){
 			Current = Root;
 		}
 
-		if(BitString[i] == 0){
+		if(BitString[i] == '0'){
 			Current = Current->Left;
 		}else{
 			Current = Current->Right;
