@@ -124,8 +124,32 @@ const char* Huffman::GetBitString(){
 	return (const char*)BitString;
 }
 
-void Huffman::Decode(){
+void Huffman::Decode(const char* BitString){
+	int idx		= 0,
+		Length	= strlen(BitString);
 
+	if(Decoded){ free(Decoded); }
+	Decoded = (char*)malloc(Length + 1);
+
+	HuffmanNode *Current = Root;
+	for(int i=0; i<=Length; i++){
+		if(Current->Left == NULL && Current->Right == NULL){
+			Decoded[idx++] = Current->Data.Symbol;
+			Current = Root;
+		}
+
+		if(BitString[i] == 0){
+			Current = Current->Left;
+		}else{
+			Current = Current->Right;
+		}
+	}
+
+	Decoded[idx] = '\0';
+}
+
+const char* Huffman::GetDecodeString(){
+	return Decoded;
 }
 
 void Huffman::DestroyTree(HuffmanNode* Tree){

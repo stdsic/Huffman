@@ -62,10 +62,11 @@ private:
 
 public:
 	const char* GetBitString();
+	const char* GetDecodeString();
 
 public:
 	void Encode(const char* src);
-	void Decode();
+	void Decode(const char* BitString);
 
 public:
 	Huffman() : Root(NULL), SourceLength(0), BitString(NULL), Decoded(NULL) { ; }
