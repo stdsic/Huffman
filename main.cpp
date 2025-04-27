@@ -4,14 +4,14 @@
 int main()
 {
 	const char* Source = "https://www.small-pond.tistory.com";
-	
+
 	Huffman MyCompression;
 	MyCompression.Encode(Source);
 
 	printf("Origin Source = %s\n", Source);
 	printf("Convert BitString = %s\n", MyCompression.GetBitString());
 
-	printf("========== Docoding ==========\n");
+	printf("========== Decoding ==========\n");
 	MyCompression.Decode(MyCompression.GetBitString());
 	printf("DecodeString = %s\n", MyCompression.GetDecodeString());
 
