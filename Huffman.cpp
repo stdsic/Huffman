@@ -121,6 +121,7 @@ void Huffman::ConvertBitString(){
 
 const char* Huffman::GetBitString(){
 	ConvertBitString();
+    BitString[Encoded.Length] = 0;
 	return (const char*)BitString;
 }
 
