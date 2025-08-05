@@ -10,7 +10,7 @@ int main()
 	MyCompression.Encode(Source);
 
     system("cls");
-	printf("Origin Source = %s\n", Source);
+	printf("\nOrigin Source = %s\n", Source);
 	printf("Convert BitString = %s\n", MyCompression.GetBitString());
 
 	printf("\n=========================================== Decoding ===========================================\n");
